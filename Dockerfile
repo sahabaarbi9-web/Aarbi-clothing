@@ -8,7 +8,7 @@ WORKDIR /app
 
 # Pehle sirf dependency files copy karo (cache-friendly build)
 COPY inventory-dashboard/backend/package.json inventory-dashboard/backend/package-lock.json ./inventory-dashboard/backend/
-RUN cd inventory-dashboard/backend && npm ci --omit=dev
+RUN cd inventory-dashboard/backend && npm install --omit=dev
 
 # Backend source + frontend (Express frontend ko static serve karta hai)
 COPY inventory-dashboard/backend ./inventory-dashboard/backend

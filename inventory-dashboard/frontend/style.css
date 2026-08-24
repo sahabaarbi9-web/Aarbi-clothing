@@ -116,3 +116,49 @@ tr:hover td { background: var(--clr-accent-soft); }
   .btn { padding: 11px 16px; }
   th, td { padding: 10px; }
 }
+
+/* ---------- Admin Login Overlay ---------- */
+.auth-overlay {
+  position: fixed; inset: 0;
+  background: rgba(10, 12, 16, .72);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: none;
+  align-items: center; justify-content: center;
+  z-index: 500; padding: 16px;
+}
+.auth-overlay.show { display: flex; }
+.auth-box {
+  background: #fff;
+  padding: 34px 30px;
+  border-radius: 16px;
+  width: 100%; max-width: 380px;
+  box-shadow: 0 18px 50px rgba(10,10,10,.35);
+  text-align: center;
+}
+.auth-box h2 {
+  font-family: var(--font-head);
+  color: #1c1c1c;
+  margin-bottom: 4px;
+}
+.auth-box h2 span { color: var(--clr-primary); }
+.auth-box p { color: #5b6570; margin-bottom: 18px; font-size: .92rem; }
+.auth-box form { display: flex; flex-direction: column; gap: 10px; }
+.auth-box input {
+  width: 100%; padding: 12px;
+  border: 1px solid #c6d0d9; border-radius: 8px;
+  font-size: 1rem;
+}
+.auth-box input:focus { outline: 2px solid var(--clr-primary); border-color: transparent; }
+.btn-login { width: 100%; padding: 12px; font-size: 1rem; }
+.auth-error { color: var(--clr-danger); font-size: .88rem; min-height: 1.1em; margin: 0; }
+.topbar .topbar-user {
+  display: flex; align-items: center; gap: 10px;
+  margin-top: 6px;
+}
+.topbar-user span { font-weight: 600; color: #3a434c; }
+.btn-logout {
+  background: #e2e8f0; color: #334155;
+  padding: 6px 14px; border-radius: 8px;
+}
+.btn-logout:hover { background: var(--clr-danger); color: #fff; }

@@ -15,7 +15,25 @@
   <header class="topbar">
     <h1>Aarbi Clothing <span>Inventory Dashboard</span></h1>
     <p>Apne products manage karein — Add, Edit, Delete aur Search</p>
+    <div class="topbar-user" id="topbarUser" style="display:none">
+      <span id="loggedUser">👤 admin</span>
+      <button id="logoutBtn" class="btn btn-logout">Logout</button>
+    </div>
   </header>
+
+  <!-- ======= Admin Login Overlay ======= -->
+  <div id="authOverlay" class="auth-overlay show">
+    <div class="auth-box">
+      <h2>Aarbi <span>Admin Login</span></h2>
+      <p>Inventory Dashboard me jane ke liye login karein</p>
+      <form id="loginForm">
+        <input id="loginUser" type="text" placeholder="Username" autocomplete="username" required>
+        <input id="loginPass" type="password" placeholder="Password" autocomplete="current-password" required>
+        <button type="submit" class="btn btn-save btn-login">Login</button>
+        <p class="auth-error" id="loginError"></p>
+      </form>
+    </div>
+  </div>
 
   <main class="container">
     <div class="stats" id="stats">

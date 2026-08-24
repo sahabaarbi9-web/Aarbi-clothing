@@ -9,6 +9,33 @@
 const API_URL = '';
 const tbody = document.getElementById('productBody');
 
+/* ---------- Admin session helpers ---------- */
+const TOKEN_KEY = 'aarbi_admin_token';
+const USER_KEY  = 'aarbi_admin_user';
+
+function getToken() { return localStorage.getItem(TOKEN_KEY) || ''; }
+function isLoggedIn() { return !!getToken(); }
+function authHeaders(json = false) {
+  const h = {};
+  if (json) h['Content-Type'] = 'application/json';
+  const t = getToken();
+  if (t) h['Authorization'] = 'Bearer ' + t;
+  return h;
+}
+const authOverlay = document.getElementById('authOverlay');
+const topbarUser  = document.getElementById('topbarUser');
+function openLock()  { if (authOverlay) authOverlay.classList.add('show'); }
+function closeLock() { if (authOverlay) authOverlay.classList.remove('show'); }
+function doLogout() {
+  localStorage.removeItem(TOKEN_KEY);
+  localStorage.removeItem(USER_KEY);
+  openLock();
+  document.getElementById('loginUser').value = '';
+  document.getElementById('loginPass').value = '';
+  document.getElementById('loginError').textContent = '';
+  tbody.innerHTML = '<tr><td colspan="6" class="loading-row">Login karke products dekh sakte hain…</td></tr>';
+}
+
 /* ---------- Toast messages (no library) ---------- */
 function showToast(message, type = 'success') {
   const wrap = document.getElementById('toastWrap');
@@ -64,9 +91,11 @@ function renderProducts(allProducts) {
 }
 /* ---------- Load products (READ) ---------- */
 async function loadProducts() {
+  if (!isLoggedIn()) return; // login nahi toh data fetch nahi karenge
   tbody.innerHTML = '<tr><td colspan="6" class="loading-row">Loading products…</td></tr>';
   try {
-    const res = await fetch(API_URL + '/api/products');
+    const res = await fetch(API_URL + '/api/products', { headers: authHeaders() });
+    if (res.status === 401) { doLogout(); showToast('Session expired — dobara login karein', 'error'); return; }
     if (!res.ok) throw new Error('API ne error diya');
     const allProducts = await res.json();
     window._allProducts = allProducts;
@@ -85,9 +114,10 @@ async function loadProducts() {
 async function addProduct(product) {
   const res = await fetch(API_URL + '/api/products', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: authHeaders(true),
     body: JSON.stringify(product)
   });
+  if (res.status === 401) { doLogout(); throw new Error('Login expire ho gaya'); }
   if (!res.ok) throw new Error('Product add nahi hua');
   await loadProducts(); // UI auto-refresh
 }
@@ -96,9 +126,10 @@ async function addProduct(product) {
 async function updateProduct(id, product) {
   const res = await fetch(API_URL + '/api/products/' + id, {
     method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
+    headers: authHeaders(true),
     body: JSON.stringify(product)
   });
+  if (res.status === 401) { doLogout(); throw new Error('Login expire ho gaya'); }
   if (!res.ok) throw new Error('Product update nahi hua');
   await loadProducts();
 }
@@ -109,7 +140,8 @@ async function deleteProduct(id) {
     return; // Cancel dabaya — kuch mat karein
   }
   try {
-    const res = await fetch(API_URL + '/api/products/' + id, { method: 'DELETE' });
+    const res = await fetch(API_URL + '/api/products/' + id, { method: 'DELETE', headers: authHeaders() });
+    if (res.status === 401) { doLogout(); throw new Error('Login expire ho gaya'); }
     if (!res.ok) throw new Error('Product delete nahi hua');
     await loadProducts();
     showToast('Product delete ho gaya ✅');
@@ -180,5 +212,66 @@ document.getElementById('searchBox').addEventListener('input', () => {
   if (window._allProducts) renderProducts(window._allProducts);
 });
 
-// Page load hote hi products dikhayein
-document.addEventListener('DOMContentLoaded', loadProducts);
+/* ---------- Admin login / logout handlers ---------- */
+const loginForm = document.getElementById('loginForm');
+const loginError = document.getElementById('loginError');
+if (loginForm) loginForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  loginError.textContent = '';
+  const username = document.getElementById('loginUser').value.trim();
+  const password = document.getElementById('loginPass').value;
+  const btn = loginForm.querySelector('button');
+  btn.disabled = true; btn.textContent = 'Logging in…';
+  try {
+    const res = await fetch(API_URL + '/api/admin/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, password })
+    });
+    const data = await res.json();
+    if (res.status !== 200 || !data.token) {
+      loginError.textContent = data.message || 'Login failed. Username/Password check karein.';
+      btn.disabled = false; btn.textContent = 'Login';
+      return;
+    }
+    localStorage.setItem(TOKEN_KEY, data.token);
+    localStorage.setItem(USER_KEY, data.username);
+    showLoggedUser(data.username);
+    closeLock();
+    await loadProducts();
+    showToast('Welcome back, ' + data.username + '! ✅');
+  } catch (err) {
+    loginError.textContent = 'Network error: ' + err.message;
+  } finally {
+    btn.disabled = false;
+    if (!isLoggedIn()) btn.textContent = 'Login';
+  }
+});
+
+function showLoggedUser(name) {
+  const el = document.getElementById('loggedUser');
+  if (el) el.textContent = '👤 ' + name;
+  if (topbarUser) topbarUser.style.display = 'flex';
+}
+
+const logoutBtn = document.getElementById('logoutBtn');
+if (logoutBtn) logoutBtn.addEventListener('click', async () => {
+  try {
+    await fetch(API_URL + '/api/admin/logout', { method: 'POST', headers: authHeaders() });
+  } catch (e) { /* ignore */ }
+  doLogout();
+  showToast('Logged out 👋');
+});
+
+// Page load: agar token hai to seedha dashboard, warna login screen
+document.addEventListener('DOMContentLoaded', () => {
+  const user = localStorage.getItem(USER_KEY) || 'admin';
+  if (isLoggedIn()) {
+    showLoggedUser(user);
+    closeLock();
+    loadProducts();
+  } else {
+    openLock();
+    updateStats([]);
+  }
+});

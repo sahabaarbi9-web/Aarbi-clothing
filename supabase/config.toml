@@ -1,0 +1,13 @@
+# ============================================================
+# AARBI CLOTHING — Supabase GitHub integration config
+# Production branch (main) me merge hote hi Supabase production
+# database par ye migration apply ho jayegi.
+# ============================================================
+
+project_id = "aarbi-clothing"            # apne Supabase project ref se milao
+[api]
+enabled = true
+[analytics]
+enabled = true
+[auth]
+enabled = true
