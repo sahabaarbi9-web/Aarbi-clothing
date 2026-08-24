@@ -3,7 +3,10 @@
    Fetch API + Complete CRUD (Add, Edit, Delete, Auto-Refresh)
    ============================================================ */
 
-const API_URL = 'http://localhost:3000';
+// Same-origin (relative) API URL — localhost pe bhi aur Railway deploy pe bhi kaam karega.
+// Backend khud frontend ko serve karta hai, isliye '/api/products' same host par hi milega.
+// Cross-origin chahiye ho to yahan full URL laga dein, jaise: const API_URL = 'https://tumhara-app.up.railway.app';
+const API_URL = '';
 const tbody = document.getElementById('productBody');
 
 /* ---------- Toast messages (no library) ---------- */

@@ -1,0 +1,11 @@
+# Node dependencies (bahut bada, repo me rakhna galat hai)
+node_modules/
+**/node_modules/
+
+# Logs / OS
+*.log
+.env
+.DS_Store
+
+# Railway local
+.railway/

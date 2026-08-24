@@ -10,7 +10,8 @@ const path = require('path');
 const cors = require('cors');
 
 const app = express();
-const PORT = 3000;
+// Railway apne aap PORT env variable deta hai; locally 3000 par chalta hai
+const PORT = process.env.PORT || 3000;
 const DATA_FILE = path.join(__dirname, 'products.json');
 
 app.use(cors()); // frontend (different port) se requests allow karein
@@ -92,6 +93,7 @@ app.delete('/api/products/:id', (req, res) => {
   res.json({ message: 'Product delete ho gaya' });
 });
 
-app.listen(PORT, () => {
+// Railway/Render etc. ke liye 0.0.0.0 par listen karna zaroori hai
+app.listen(PORT, '0.0.0.0', () => {
   console.log('Server chal raha hai: http://localhost:' + PORT);
 });
