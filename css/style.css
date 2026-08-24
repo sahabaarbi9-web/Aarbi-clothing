@@ -62,6 +62,8 @@ input, select, textarea { font-family: inherit; font-size: 1rem; }
 .nav-link::after { content: ''; position: absolute; left: 14px; right: 14px; bottom: 4px; height: 2px; background: var(--clr-accent); transform: scaleX(0); transform-origin: left; transition: transform .3s var(--ease); }
 .nav-link:hover, .nav-link.active { color: var(--clr-accent-dark); }
 .nav-link:hover::after, .nav-link.active::after { transform: scaleX(1); }
+.admin-link { color: #fff; background: var(--clr-accent-dark); border-radius: 8px; padding: 8px 14px; font-weight: 600; }
+.admin-link:hover { background: #b0540f; }
 .header-actions { display: flex; align-items: center; gap: 6px; }
 .search-form { display: flex; align-items: center; background: var(--clr-bg); border: 1px solid var(--clr-line); border-radius: 999px; padding: 4px 6px 4px 18px; width: 250px; transition: width .35s var(--ease), border-color .3s var(--ease), box-shadow .3s var(--ease); }
 .search-form:focus-within { border-color: var(--clr-accent); box-shadow: 0 0 0 3px rgba(185,134,79,.15); width: 290px; }
