@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Aarbi Clothing — Online Store Inventory Dashboard. Manage products: Add, Edit, Delete, Search.">
+  <title>Aarbi Clothing | Inventory Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="topbar">
+    <h1>Aarbi Clothing <span>Inventory Dashboard</span></h1>
+    <p>Apne products manage karein — Add, Edit, Delete aur Search</p>
+  </header>
+
+  <main class="container">
+    <div class="stats" id="stats">
+      <div class="stat-card">
+        <div class="stat-icon">🧾</div>
+        <div class="stat-info">
+          <strong id="statCount">0</strong>
+          <span>Products</span>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">📦</div>
+        <div class="stat-info">
+          <strong id="statStock">0</strong>
+          <span>Total Stock</span>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">💰</div>
+        <div class="stat-info">
+          <strong id="statValue">Rs. 0</strong>
+          <span>Stock Value</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="toolbar">
+      <button id="addBtn" class="btn btn-add">+ Add Product</button>
+      <input id="searchBox" type="text" placeholder="Product search karein…" aria-label="Search products">
+    </div>
+
+    <div class="card">
+      <table id="productTable">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Price (PKR)</th>
+            <th>Stock</th>
+            <th>Category</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="productBody">
+          <!-- JS yahan rows banayega -->
+          <tr><td colspan="6" class="loading-row">Loading products…</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <!-- Add / Edit Modal -->
+  <div id="modal" class="modal hidden">
+    <div class="modal-box">
+      <h2 id="modalTitle">Add Product</h2>
+      <form id="productForm">
+        <input id="name" type="text" placeholder="Product name" required>
+        <input id="price" type="number" placeholder="Price (PKR)" min="0" required>
+        <input id="stock" type="number" placeholder="Stock" min="0" required>
+        <select id="category" required>
+          <option value="">Select category…</option>
+          <option>Shirts</option>
+          <option>Pants</option>
+          <option>Shalwar Kameez</option>
+          <option>Kids</option>
+          <option>Shoes</option>
+          <option>Purses</option>
+          <option>Heels</option>
+          <option>Accessories</option>
+          <option>Other</option>
+        </select>
+        <div class="modal-actions">
+          <button type="submit" class="btn btn-save">Save</button>
+          <button type="button" id="cancelBtn" class="btn btn-cancel">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast container -->
+  <div id="toastWrap" class="toast-wrap" aria-live="polite"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

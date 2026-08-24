@@ -1,0 +1,118 @@
+/* ============================================================
+   AARBI CLOTHING — Inventory Dashboard Stylesheet
+   Workbook design + Aarbi brand colors & fonts
+   ============================================================ */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --clr-bg: #f7f5f2;
+  --clr-accent: #b9864f;
+  --clr-accent-dark: #8f6537;
+  --clr-accent-soft: #f0e2d0;
+  --clr-dark: #141414;
+  --clr-danger: #c0392b;
+  --clr-success: #218838;
+  --font-head: 'Playfair Display', Georgia, serif;
+  --font-body: 'Jost', 'Segoe UI', Arial, sans-serif;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--clr-bg);
+  color: #1c1c1c;
+  line-height: 1.6;
+  font-size: 16px;
+}
+
+.topbar {
+  background: linear-gradient(135deg, #141414, #3a2b1c);
+  color: #fff;
+  padding: 26px 18px;
+  text-align: center;
+  border-bottom: 3px solid var(--clr-accent);
+}
+.topbar h1 { font-family: var(--font-head); font-size: 1.7rem; }
+.topbar h1 span { color: #e8c9a2; }
+.topbar p { opacity: 0.88; font-size: 14px; margin-top: 6px; }
+
+.container { max-width: 1000px; margin: 24px auto; padding: 0 14px; }
+
+/* ---------- Stats cards ---------- */
+.stats { display: flex; gap: 14px; margin-bottom: 20px; flex-wrap: wrap; }
+.stat-card {
+  flex: 1 1 220px;
+  background: #fff;
+  border: 1px solid #ece7e0;
+  border-radius: 12px;
+  padding: 16px 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow: 0 2px 8px rgba(20,20,20,.06);
+}
+.stat-icon { font-size: 1.9rem; }
+.stat-info strong { font-size: 1.25rem; font-family: var(--font-head); display: block; }
+.stat-info span { color: #6f6b66; font-size: .82rem; }
+
+/* ---------- Toolbar ---------- */
+.toolbar { display: flex; gap: 12px; align-items: center; margin-bottom: 18px; flex-wrap: wrap; }
+.btn { border: none; border-radius: 999px; padding: 11px 20px; cursor: pointer; color: #fff; font-weight: 600; font-size: .92rem; transition: transform .2s, box-shadow .2s, background .2s; }
+.btn:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(20,20,20,.12); }
+.btn-add { background: var(--clr-success); }
+.btn-edit { background: #2563eb; padding: 7px 14px; font-size: .83rem; }
+.btn-delete { background: var(--clr-danger); padding: 7px 14px; font-size: .83rem; }
+.btn-save { background: var(--clr-success); }
+.btn-cancel { background: #64748b; }
+#searchBox { flex: 1; padding: 11px 14px; min-width: 200px; border: 1px solid #d8d3cc; border-radius: 999px; font-size: .92rem; }
+
+/* ---------- Table ---------- */
+.card {
+  background: #fff;
+  border-radius: 14px;
+  border: 1px solid #ece7e0;
+  box-shadow: 0 4px 16px rgba(20,20,20,.08);
+  overflow-x: auto;
+}
+table { width: 100%; border-collapse: collapse; }
+th, td { padding: 13px 14px; text-align: left; border-bottom: 1px solid #eee9e2; }
+th { background: #2c2116; color: #e8c9a2; letter-spacing: .03em; }
+tr:hover td { background: var(--clr-accent-soft); }
+.empty-row { color: #6f6b66; text-align: center; padding: 28px; }
+.loading-row { color: #6f6b66; text-align: center; padding: 28px; font-style: italic; }
+.error-row { color: var(--clr-danger); text-align: center; padding: 28px; }
+.stock-low { color: var(--clr-danger); font-weight: 600; }
+
+/* ---------- Modal ---------- */
+.modal { position: fixed; inset: 0; background: rgba(20,20,20,.55); display: flex; align-items: center; justify-content: center; z-index: 100; }
+.hidden { display: none; }
+.modal-box {
+  background: #fff;
+  padding: 26px;
+  border-radius: 14px;
+  width: 92%;
+  max-width: 400px;
+  box-shadow: 0 12px 40px rgba(20,20,20,.22);
+}
+.modal-box h2 { font-family: var(--font-head); margin-bottom: 16px; color: #1c1c1c; }
+#productForm input, #productForm select { width: 100%; padding: 11px; margin-bottom: 11px; border: 1px solid #c6d0d9; border-radius: 8px; font-size: 1rem; }
+.modal-actions { display: flex; gap: 10px; justify-content: flex-end; }
+
+/* ---------- Toasts ---------- */
+.toast-wrap { position: fixed; top: 20px; right: 20px; display: flex; flex-direction: column; gap: 10px; z-index: 200; }
+.toast {
+  background: var(--clr-success);
+  color: #fff;
+  padding: 12px 18px;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(20,20,20,.16);
+  animation: toastIn .3s ease;
+}
+.toast.error { background: var(--clr-danger); }
+.toast.info { background: #2563eb; }
+@keyframes toastIn { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: none; } }
+
+@media (max-width: 640px) {
+  .topbar h1 { font-size: 1.35rem; }
+  .btn { padding: 11px 16px; }
+  th, td { padding: 10px; }
+}

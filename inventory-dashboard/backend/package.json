@@ -1,0 +1,15 @@
+{
+  "name": "aarbi-inventory-dashboard",
+  "version": "1.0.0",
+  "description": "Aarbi Clothing - Online Store Inventory Dashboard (CRUD API)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": ["crud", "express", "inventory", "dashboard"],
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2"
+  }
+}

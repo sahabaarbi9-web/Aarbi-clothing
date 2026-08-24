@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "name": "Classic Cotton T-Shirt",
+    "price": 1200,
+    "stock": 25,
+    "category": "Shirts"
+  },
+  {
+    "id": 2,
+    "name": "Men's Slim Fit Jeans",
+    "price": 2500,
+    "stock": 18,
+    "category": "Pants"
+  },
+  {
+    "id": 3,
+    "name": "Female Lawn Shalwar Kameez",
+    "price": 3200,
+    "stock": 30,
+    "category": "Shalwar Kameez"
+  },
+  {
+    "id": 4,
+    "name": "Kids T-Shirt Multi-Pack",
+    "price": 1500,
+    "stock": 40,
+    "category": "Kids"
+  },
+  {
+    "id": 5,
+    "name": "Leather Formal Shoes",
+    "price": 4500,
+    "stock": 12,
+    "category": "Shoes"
+  },
+  {
+    "id": 6,
+    "name": "Elegant Evening Clutch",
+    "price": 1800,
+    "stock": 20,
+    "category": "Purses"
+  }
+]
