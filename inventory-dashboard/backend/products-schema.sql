@@ -21,7 +21,27 @@ insert into public.products (name, price, stock, category) values
   ('Female Lawn Shalwar Kameez',      3200, 30, 'Shalwar Kameez'),
   ('Kids T-Shirt Multi-Pack',         1500, 40, 'Kids'),
   ('Leather Formal Shoes',            4500, 12, 'Shoes'),
-  ('Elegant Evening Clutch',          1800, 18, 'Purses')
+  ('Elegant Evening Clutch',          1800, 18, 'Purses'),
+  ('Classic Denim Overshirt',         2799, 20, 'Shirts'),
+  ('Linen Casual Shirt',              2599, 24, 'Shirts'),
+  ('Premium Polo Trio',               2299, 30, 'Shirts'),
+  ('Regular Cargo Pants',             3399, 18, 'Pants'),
+  ('Slim Chino Trousers',             3099, 16, 'Pants'),
+  ('Trail Running Sneakers',          4899, 14, 'Shoes'),
+  ('Urban Loafer Mules',              3799, 12, 'Shoes'),
+  ('Satin Ready-To-Wear Suit',        5999, 12, 'Shalwar Kameez'),
+  ('Printed Cotton Kurti',            2299, 32, 'Shalwar Kameez'),
+  ('Chiffon Party Kameez',            5299, 16, 'Shalwar Kameez'),
+  ('Khaddi Embroidered Suit',         4499, 10, 'Shalwar Kameez'),
+  ('Quilted Crossbody Bag',           3799, 20, 'Purses'),
+  ('Structured Top-Handle Bag',       4599,  9, 'Purses'),
+  ('Satin Block Heels',               2699, 18, 'Heels'),
+  ('Open-Toe High Heels',             3499, 11, 'Heels'),
+  ('Kids Graphic Tee Set',            1299, 40, 'Kids'),
+  ('Kids Denim Overalls',             2199, 22, 'Kids'),
+  ('Kids Cartoon Sneakers',           1899, 26, 'Kids'),
+  ('Toddler Winter Jacket',           1999, 14, 'Kids'),
+  ('Teen Floral Hoodie',              2499, 17, 'Kids')
 on conflict (name) do nothing;
 
 -- --- RLS on karein + anon ke liye full CRUD allow karein ---
